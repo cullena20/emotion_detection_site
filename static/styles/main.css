@@ -1,0 +1,30 @@
+html {
+    background-color: whitesmoke;
+}
+
+a:link {
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+a:visited {
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: dodgerblue;
+    text-decoration: none;
+}
+
+.site-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.submission {
+    padding-bottom: 10px;
+}
+.information {
+    padding-top: 10px;
+}
