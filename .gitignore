@@ -2,3 +2,4 @@
 .vscode/
 uploads/
 machinelearning/__pycache__
+vgg16_emotion_detection.h5
