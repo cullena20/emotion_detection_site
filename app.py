@@ -9,12 +9,14 @@ from PIL import Image
 import io
 import base64
 
+
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 2048 * 2048  # only accepts files up to 2 mb
 app.config['UPLOAD_EXTENSIONS'] = ['.jpeg', '.jpg', '.png']
 app.config['UPLOAD_PATH'] = 'uploads'
 
-model = load_model("best_cnn_model.h5")
+
+model = load_model("vgg16_emotion_detection.h5")
 
 
 def validate_image(stream):
