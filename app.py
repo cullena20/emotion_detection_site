@@ -1,10 +1,8 @@
-from flask import Flask, request, url_for, render_template, redirect, send_file
-from flask.helpers import send_from_directory
+from flask import Flask, request, url_for, render_template, redirect, send_from_directory
 from werkzeug.utils import secure_filename
 import os
 from tensorflow.keras.models import load_model
 from machinelearning import ml
-import numpy as np
 from PIL import Image
 import io
 import base64
@@ -59,7 +57,6 @@ def upload_file():
             print("Exception")
             return render_template('index.html', error='Something went wrong. To be fixed.')
         image = ml.draw_predictions(file_path, face_locations, predictions)
-        # serve image is not working
         encoded_img_data = serve_image(image)
         if error is not None:
             return render_template('index.html', error=error)
@@ -67,6 +64,7 @@ def upload_file():
     return redirect(url_for('index'))
 
 
+# this was to learn how to display images and is not used
 @app.route('/display/<filename>')
 def display_image(filename):
     return send_from_directory(app.config['UPLOAD_PATH'], filename)
@@ -75,18 +73,6 @@ def display_image(filename):
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
 
-# im basically copying code for displaying the image
-# figure this out after the gym
-# also lots of error handling
-# but i got the general thing yippee!
 
 # learn more about os module. it always comes up but i am not familiar with it
 # learn more about this io stuff
-
-# def validate_image(stream):
-#     header = stream.read(512)
-#     stream.seek(0)
-#     format = imghdr.what(None, header)
-#     if not format:
-#         return None
-#     return '.' + (format if format != 'jpeg' else 'jpg')

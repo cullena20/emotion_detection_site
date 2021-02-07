@@ -88,5 +88,3 @@ def draw_predictions(image_fp, face_locations, predictions):
         image = cv2.rectangle(image, start[j], end[j], (36,255,12), 2)
         cv2.putText(image, predictions[j], (end[j][0]+10, start[j][1]-10), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (36,255,12), 2)
     return image
-    
-# i could change this to return coordinates of faces instead and use open cv to display that

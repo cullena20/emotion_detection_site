@@ -35,13 +35,8 @@
             {% endif %}
         </div>
         {% if filename %}
+            <!-- this was to learn how to display images and is not used -->
             <img class="analysis" src="{{ url_for('display_image', filename=filename)}}">
-        {% endif %}
-        {% if predictions %}
-            <h5> Predictions </h5>
-            {% for prediction in predictions %}
-                <p> Prediction: {{ prediction }} </p> 
-            {% endfor %}
         {% endif %}
         {% if img_data %}
             <h5> Analyzed Image </h5>
