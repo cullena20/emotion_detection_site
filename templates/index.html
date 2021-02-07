@@ -20,7 +20,8 @@
     </header>
     <main class="container">
         <div class="row submission">
-            <p> Submit an image: </p>
+            <h5> Submit an image: </h5>
+            <p> Please do not be scared if the machine turns you into a blueberry. </p>
             <form method="POST" action="" enctype="multipart/form-data">
                 <p><input type="file" name="file" /></p>
                 <p><input type="submit" value="Analyze" /></p>
@@ -29,21 +30,23 @@
         <div class="row">
             {%  if error %}
                 <div class="col-md-12">
-                    <p> {{ error }} </p>
+                    <p> Error: {{ error }} </p>
                 </div>
-            {% endif %}
-            {% if predictions %}
-                <div class="col-md-12">
-                    <h5> Emotion Analysis </h5>
-                        {% for prediction in predictions %}
-                            <p> Prediction: {{ prediction }} </p>
-                        {%  endfor %}
-                </div>
-            {% endif %}
-            {% if image %}
-                <img src="data:image/JPEG;base64,{{ image }}">
             {% endif %}
         </div>
+        {% if filename %}
+            <img class="analysis" src="{{ url_for('display_image', filename=filename)}}">
+        {% endif %}
+        {% if predictions %}
+            <h5> Predictions </h5>
+            {% for prediction in predictions %}
+                <p> Prediction: {{ prediction }} </p> 
+            {% endfor %}
+        {% endif %}
+        {% if img_data %}
+            <h5> Analyzed Image </h5>
+            <img src="data:image/jpeg;base64,{{ img_data }}">
+        {% endif %}
         <div class="information">
             <h3> What is this? </h3>
                 <p class="explanation">
@@ -53,20 +56,44 @@
                     sadness and neutrality.
                 </p>
             <h3> How does this work? </h3>
-            <p class="explanation">
-                When you submit an image, it is run through a facial recognition model and then through
-                an emotion detection model that I built. The facial recognition model goes through the 
-                image and returns the areas of the image containing a face. It then preprocess the images
-                of the faces and runs them through the emotion detection model. The emotion detection model
-                was trained on the fer2013 database from Kaggle. You can check out the original competition
-                containing the database 
-                <a href="https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data">
-                here</a>.
-            </p>
+                <p class="explanation">
+                    When you submit an image, it is run through a facial recognition model and then through
+                    an emotion detection model that I built. The facial recognition model goes through the 
+                    image and returns the areas of the image containing a face. It then preprocess the images
+                    of the faces and runs them through the emotion detection model. The emotion detection model
+                    was trained on the fer2013 database from Kaggle. You can check out the original competition
+                    containing the database 
+                    <a href="https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data">
+                    here</a>.
+                </p>
             <h3> Methodology for Nerds </h3>
-            <p class="explanation">
-                To see how I created this model, check out the Colab Notebooks linked at the top of the page!
-            </p>
+                <p class="explanation">
+                    To see how I created this model, check out the Colab Notebooks linked at the top of the page!
+                </p>
+            <h3> Warnings </h3>
+                <ul class="explanation">
+                    <li>
+                        When I tested this on my IPhone, no faces were detected in many images. I am honestly
+                        not sure why as the images are in the correct format and are correctly converted to 
+                        numpy arrays. This is probably an issue with the face_recongition library that I am
+                        using to detect faces.
+                    </li>
+                    <li> 
+                        This model can only accept jpg, jpeg, and png images. If you airdrop an image, it is saved as a
+                        HEIC file and will not work through this model. Changing the extension name manually has not 
+                        worked either in my experience. 
+                    </li>
+                    <li>
+                        This website only accepts images below 6 mb.
+                    </li>
+                    <li>
+                        Somewhere in the time when an image is submitted, processed, and displayed, it is turned blue.
+                    </li>
+                    <li>
+                        If the faces in the image are too small, the model can not properly resize them to perform the 
+                        emotion analysis. 
+                    </li>
+                </ul>
     </main>
     <address class="container information">
         <h3> About Me </h3>
@@ -78,4 +105,3 @@
         </p>
     </address>
 </body>
-</html>

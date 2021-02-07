@@ -1,5 +1,23 @@
 html {
     background-color: whitesmoke;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+}
+
+img {
+    display: block;
+    max-height: 500px;
+    max-width: 1000px;
+    height: auto;
+    width: auto;
 }
 
 a:link {
@@ -25,6 +43,7 @@ a:hover {
 .submission {
     padding-bottom: 10px;
 }
+
 .information {
     padding-top: 10px;
 }
