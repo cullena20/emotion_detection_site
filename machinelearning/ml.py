@@ -13,9 +13,19 @@ def get_faces(image_fp):
         faces: list of numpy arrays containing faces identified from image
         face_locations: coordinates of faces in image
     '''
-    image = face_recognition.load_image_file(image_fp)
+    print('get_faces: loading image')
+    image = face_recognition.load_image_file(image_fp)  # some images are just not loaded
+    print('get_faces_1:', image.shape)
     try:
-        print(image.shape)
+        #rotate accordingly
+        print('get_faces: attempting to rotate image')
+        image = PIL.ImageOps.exif_transpose(image)   
+        print('get_faces: image rotated')
+    except:
+        print('get_faces: image not rotated')
+        pass
+    try:
+        print('get_faces_2:', image.shape)
     except Exception:
         pass
     faces = list()
@@ -47,9 +57,9 @@ def process_faces(faces):
         face_image = np.expand_dims(face_image, axis=0)
         processed_faces.append(face_image)
     try:
-        print(processed_faces[0].shape)
+        print('process_faces:', processed_faces[0].shape)
     except IndexError:
-        print("Processed_faces is empty")
+        print("process_faces: Processed_faces is empty")
     return processed_faces
 
 

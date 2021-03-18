@@ -36,7 +36,7 @@ def index():
 
 @app.route('/', methods=["POST"])
 def upload_file():
-    print(model)
+    print()
     file = request.files['file']
     filename = secure_filename(file.filename)
     if filename != '':
